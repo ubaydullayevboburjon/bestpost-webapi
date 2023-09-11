@@ -2,8 +2,11 @@
 
 namespace BestPost.DataAccsess.Interfaces.Users;
 
-public interface IUserInterface
+public interface IUserRepository:IRepository<User,User>
 {
     public Task<User> GetByUsername(string username);
 
+    public Task<User?> GetByEmailAsync(string email);
+
+    public Task<List<User>> GetAll();
 }

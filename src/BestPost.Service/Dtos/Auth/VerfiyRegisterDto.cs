@@ -10,5 +10,5 @@ public class VerfiyRegisterDto
 {
     public string Email { get; set; } = string.Empty;
 
-    public long Code { get; set; }
+    public int Code { get; set; }
 }
