@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace BestPost.Domain.Entites.Users;
 
-public class User:Auditable
+public class User : Auditable
 {
     [MaxLength(50)]
     public string FirstName { get; set; } = String.Empty;

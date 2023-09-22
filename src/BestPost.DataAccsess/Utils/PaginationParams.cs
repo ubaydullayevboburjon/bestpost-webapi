@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BestPost.DataAccsess.Utils;
+﻿namespace BestPost.DataAccsess.Utils;
 
 public class PaginationParams
 {

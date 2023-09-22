@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BestPost.WebApi.Controllers;
 
-[Route("api/[controller]")]
+[Route("api/auth")]
 [ApiController]
 public class AuthController : ControllerBase
 {
@@ -47,7 +47,10 @@ public class AuthController : ControllerBase
     public async Task<IActionResult> VerifyRegisterAsync([FromBody] VerfiyRegisterDto verifyRegisterDto)
     {
         var serviceResult = await _authService.VerifyRegisterAsync(verifyRegisterDto.Email, verifyRegisterDto.Code);
-        return Ok(new { serviceResult.Result, serviceResult.Token });
+        if (serviceResult.Result)
+            return Ok(new { serviceResult.Result, serviceResult.Token });
+        else
+            return BadRequest(serviceResult.Result);
     }
 
     [HttpPost("login")]

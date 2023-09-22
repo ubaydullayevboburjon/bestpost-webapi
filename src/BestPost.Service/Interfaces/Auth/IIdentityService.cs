@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BestPost.Service.Interfaces.Auth;
+﻿namespace BestPost.Service.Interfaces.Auth;
 
 public interface IIdentityService
 {
@@ -14,6 +8,10 @@ public interface IIdentityService
 
     public string LastName { get; }
 
+    public string Username { get; }
+
     public string Email { get; }
+
+    public string? IdentityRole { get; }
 
 }

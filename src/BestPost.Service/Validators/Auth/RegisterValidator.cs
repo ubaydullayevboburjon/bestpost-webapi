@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace BestPost.Service.Validators.Auth;
 
-public class RegisterValidator:AbstractValidator<RegisterDto>
+public class RegisterValidator : AbstractValidator<RegisterDto>
 {
     public RegisterValidator()
     {

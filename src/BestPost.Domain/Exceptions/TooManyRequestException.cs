@@ -2,7 +2,7 @@
 
 namespace BestPost.Domain.Exceptions;
 
-public class TooManyRequestException:ClientException
+public class TooManyRequestException : ClientException
 {
     public override HttpStatusCode StatusCode { get; } = HttpStatusCode.TooManyRequests;
 

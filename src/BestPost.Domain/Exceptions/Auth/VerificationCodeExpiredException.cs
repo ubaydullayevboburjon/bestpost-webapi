@@ -1,6 +1,6 @@
 ﻿namespace BestPost.Domain.Exceptions.Auth;
 
-public class VerificationCodeExpiredException:ExpiredException
+public class VerificationCodeExpiredException : ExpiredException
 {
     public VerificationCodeExpiredException()
     {

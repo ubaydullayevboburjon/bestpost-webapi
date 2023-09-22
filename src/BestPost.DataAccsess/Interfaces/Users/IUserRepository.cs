@@ -1,12 +1,13 @@
-﻿using BestPost.Domain.Entites.Users;
+﻿using BestPost.DataAccsess.ViewModels;
+using BestPost.Domain.Entites.Users;
 
 namespace BestPost.DataAccsess.Interfaces.Users;
 
-public interface IUserRepository:IRepository<User,User>
+public interface IUserRepository : IRepository<User, UserViewModel>
 {
-    public Task<User> GetByUsername(string username);
+    public Task<UserViewModel> GetByUsernamAsync(string username);
 
     public Task<User?> GetByEmailAsync(string email);
 
-    public Task<List<User>> GetAll();
+    public Task<List<UserViewModel>> GetAll();
 }

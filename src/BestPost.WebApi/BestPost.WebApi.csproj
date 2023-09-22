@@ -18,4 +18,9 @@
     <ProjectReference Include="..\BestPost.Service\BestPost.Service.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\storage\images\posts\" />
+    <Folder Include="wwwroot\storage\images\users\" />
+  </ItemGroup>
+
 </Project>

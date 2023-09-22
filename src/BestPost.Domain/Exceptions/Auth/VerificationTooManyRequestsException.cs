@@ -1,6 +1,6 @@
 ﻿namespace BestPost.Domain.Exceptions.Auth;
 
-public class VerificationTooManyRequestsException:TooManyRequestException
+public class VerificationTooManyRequestsException : TooManyRequestException
 {
     public VerificationTooManyRequestsException()
     {

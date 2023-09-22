@@ -1,10 +1,16 @@
+using BestPost.DataAccsess.Interfaces.Posts;
 using BestPost.DataAccsess.Interfaces.Users;
+using BestPost.DataAccsess.Repositories.Posts;
 using BestPost.DataAccsess.Repositories.Users;
 using BestPost.Service.Interfaces.Auth;
+using BestPost.Service.Interfaces.Common;
 using BestPost.Service.Interfaces.Notifications;
+using BestPost.Service.Interfaces.Posts;
 using BestPost.Service.Interfaces.Users;
 using BestPost.Service.Services.Auth;
+using BestPost.Service.Services.Common;
 using BestPost.Service.Services.Notifications;
+using BestPost.Service.Services.Posts;
 using BestPost.Service.Services.Users;
 using BestPost.WebApi.Configurations;
 using BestPost.WebApi.Middlewares;
@@ -26,11 +32,15 @@ builder.ConfigureSwaggerAuth();
 builder.ConfigureCORSPolicy();
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IPostRepository, PostRepository>();
 
+builder.Services.AddScoped<IIdentityService, IdentityService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IUserService, UserService>();
-builder.Services.AddScoped<IIdentityService, IdentityService>();
+builder.Services.AddScoped<IFileService, FileService>();
+builder.Services.AddScoped<IPostService,PostService>();
+builder.Services.AddScoped<IPaginator,Paginator>();
 
 builder.Services.AddSingleton<IEmailSender, EmailSender>();
 

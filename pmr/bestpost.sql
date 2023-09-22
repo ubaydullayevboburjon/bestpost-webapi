@@ -45,3 +45,18 @@ CREATE TABLE likes
 	updated_at timestamp without time zone default now()
 );
 
+CREATE TABLE postTag(
+	id bigint generated always as identity primary key,
+	post_id bigint references posts(id),
+	tags text,
+	created_at timestamp without time zone default now(),
+	updated_at timestamp without time zone default now()
+);
+
+CREATE TABLE tags(
+	id bigint generated always as identity primary key,
+	name text,
+	created_at timestamp without time zone default now(),
+	updated_at timestamp without time zone default now()
+);
+

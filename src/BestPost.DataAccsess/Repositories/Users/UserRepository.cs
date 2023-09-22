@@ -1,11 +1,12 @@
 ﻿using BestPost.DataAccsess.Interfaces.Users;
+using BestPost.DataAccsess.ViewModels;
 using BestPost.Domain.Entites.Users;
 using Dapper;
 
 namespace BestPost.DataAccsess.Repositories.Users;
-public class UserRepository : BaseRepository , IUserRepository
+public class UserRepository : BaseRepository, IUserRepository
 {
-    public async  Task<long> CountAsync()
+    public async Task<long> CountAsync()
     {
         try
         {
@@ -24,7 +25,7 @@ public class UserRepository : BaseRepository , IUserRepository
         }
     }
 
-    public async Task<int> CreateAsync(User entity)
+    public async Task<long> CreateAsync(User entity)
     {
         try
         {
@@ -44,7 +45,7 @@ public class UserRepository : BaseRepository , IUserRepository
         }
     }
 
-    public async Task<int> DeleteAsync(long id)
+    public async Task<long> DeleteAsync(long id)
     {
         try
         {
@@ -63,23 +64,23 @@ public class UserRepository : BaseRepository , IUserRepository
         }
     }
 
-    public async Task<List<User>> GetAll()
+    public async Task<List<UserViewModel>> GetAll()
     {
 
         try
         {
             await _connection.OpenAsync();
-            string query = "select * from users  order by desc";
-            var result  = (await _connection.QueryAsync<User>(query)).ToList();
+            string query = "select * from users  order by id desc ";
+            var result = (await _connection.QueryAsync<UserViewModel>(query)).ToList();
             return result;
 
         }
-        catch 
+        catch
         {
 
-            return new List<User>();
+            return new List<UserViewModel>();
         }
-        finally 
+        finally
         {
             await _connection.CloseAsync();
         }
@@ -123,18 +124,18 @@ public class UserRepository : BaseRepository , IUserRepository
         }
     }
 
-    public async  Task<User> GetByUsername(string username)
+    public async Task<UserViewModel> GetByUsernamAsync(string username)
     {
         try
         {
             await _connection.OpenAsync();
             string query = "SELECT *FROM users WHERE username = @Username;";
-            var data = await _connection.QuerySingleAsync<User>(query, new { Username = username });
+            var data = await _connection.QuerySingleAsync<UserViewModel>(query, new { Username = username });
             return data;
         }
         catch
         {
-            return new User();
+            return new UserViewModel();
         }
         finally
         {
@@ -142,14 +143,14 @@ public class UserRepository : BaseRepository , IUserRepository
         }
     }
 
-    public async  Task<int> UpdateAsync(long id, User entity)
+    public async Task<long> UpdateAsync(long id, User entity)
     {
         try
         {
             await _connection.OpenAsync();
             string query = "UPDATE users " +
                 "SET first_name = @FirstName, last_name = @LastName,username=@username, email = @Email, email_confirmed = @EmailConfirmed, " +
-                "image_path = @ImagePath, password_salt = @PasswordSalt, password_hash = @PasswordHash " +
+                "image_path = @ImagePath, password_salt = @PasswordSalt, password_hash = @PasswordHash , " +
                 " updated_at = @UpdatedAt " +
                 $"WHERE id = {id};";
             var result = await _connection.ExecuteAsync(query, entity);

@@ -1,10 +1,8 @@
 ﻿using BestPost.Service.Dtos.Notifications;
 using BestPost.Service.Interfaces.Notifications;
 using Microsoft.Extensions.Configuration;
-using MailKit.Net.Smtp;
 using MimeKit;
 using MimeKit.Text;
-using System.Net.Mail;
 
 namespace BestPost.Service.Services.Notifications;
 

@@ -51,6 +51,9 @@ public class AuthService : IAuthService
         var User = await _repository.GetByEmailAsync(dto.Email);
         if (User is not null) throw new UserAlreadyExistsExcaption(dto.Email);
 
+        var UserUsername = await _repository.GetByUsernamAsync(dto.Username);
+        if (UserUsername is not null) throw new UsernameAlreadyExcaptions(dto.Username);
+
         if (_memoryCache.TryGetValue(REGISTER_CACHE_KEY + dto.Email, out RegisterDto cachedRegisterDto))
         {
             cachedRegisterDto.FirstName = cachedRegisterDto.FirstName;
@@ -93,7 +96,7 @@ public class AuthService : IAuthService
         else throw new UserCacheDataExpiredException();
     }
 
-    public async  Task<(bool Result, string Token)> VerifyRegisterAsync(string email, int code)
+    public async Task<(bool Result, string Token)> VerifyRegisterAsync(string email, int code)
     {
         var User = await _repository.GetByEmailAsync(email);
         if (User is not null) throw new UserAlreadyExistsExcaption(email);
@@ -135,6 +138,7 @@ public class AuthService : IAuthService
         user.FirstName = registerDto.FirstName;
         user.LastName = registerDto.LastName;
         user.Email = registerDto.Email;
+        user.Username = registerDto.Username;
         user.EmailConfirmed = true;
 
         var hasherResult = PasswordHasher.Hash(registerDto.Password);

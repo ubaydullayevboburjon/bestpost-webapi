@@ -1,6 +1,6 @@
 ﻿namespace BestPost.Domain.Exceptions.Users;
 
-public class UserCacheDataExpiredException: ExpiredException
+public class UserCacheDataExpiredException : ExpiredException
 {
     public UserCacheDataExpiredException()
     {
