@@ -19,7 +19,7 @@ public class PostController : ControllerBase
         _postService = postService;
     }
 
-    [HttpPost("create")]
+    [HttpPost]
 
     public async Task<IActionResult> CreateAsync([FromForm] PostCreateDto postCreateDto)
     {
@@ -30,26 +30,26 @@ public class PostController : ControllerBase
         else return BadRequest(result.Errors);
     }
 
-    [HttpGet("getall")]
+    [HttpGet]
     public async Task<IActionResult> GetAllAsync([FromQuery] int page = 1)
        => Ok(await  _postService.GetAllAsync(new PaginationParams(page, maxPageSize)));
 
-    [HttpGet("get/id")]
+    [HttpGet("{postId}")]
 
-    public async Task<IActionResult> GetByIdAsync([FromForm]long id) 
-        => Ok(await _postService.GetByIdAsync(id));
+    public async Task<IActionResult> GetByIdAsync(long postId) 
+        => Ok(await _postService.GetByIdAsync(postId));
 
-    [HttpDelete("delete")]
+    [HttpDelete("{postId}")]
 
-    public async Task<IActionResult>DeleteAsync([FromForm] long id)
-        => Ok( await _postService.DeleteAsync(id));
+    public async Task<IActionResult>DeleteAsync( long postId)
+        => Ok( await _postService.DeleteAsync(postId));
 
     [HttpGet("search")]
 
     public async Task<IActionResult> SearchAsync([FromQuery] string search) 
         => Ok(await _postService.SearchAsync(search));
 
-    [HttpPut("update")]
+    [HttpPut]
 
     public async Task<IActionResult> UpdateAsync([FromForm] long id , PostUpdateDto postUpdateDto)
         => Ok(await _postService.UpdateAsync(id,postUpdateDto));

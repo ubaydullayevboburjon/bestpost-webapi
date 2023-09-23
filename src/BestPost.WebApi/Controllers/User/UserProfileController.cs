@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BestPost.WebApi.Controllers.User;
 
-[Route("api/user")]
+[Route("api/users")]
 [ApiController]
 [Authorize(Roles = "User")]
 public class UserProfileController : ControllerBase
@@ -22,7 +22,7 @@ public class UserProfileController : ControllerBase
 
     public async Task<IActionResult> CountAsync() => Ok(await _userService.CountAsync());
 
-    [HttpGet("users")]
+    [HttpGet]
 
     public async Task<IActionResult> GetAllAsync() => Ok(await _userService.GetAllAsync());
 
@@ -30,7 +30,7 @@ public class UserProfileController : ControllerBase
 
     public async Task<IActionResult> GetPofileInfoAsync() => Ok(await _userService.GetProfileInfoAsync());
 
-    [HttpPut("update")]
+    [HttpPut]
     public async Task<IActionResult> UpdateAsync([FromForm] UserUpdateDto dto)
     {
         var updateValidator = new UserUpdateValidator();
@@ -49,7 +49,7 @@ public class UserProfileController : ControllerBase
         return Ok(await _userService.UploadImageAsync(file));
     }
 
-    [HttpPut("delete/image")]
+    [HttpDelete("delete/image")]
 
     public async Task<IActionResult> DeleteImageAsync() => Ok(await _userService.DeleteImageAsync());
 
