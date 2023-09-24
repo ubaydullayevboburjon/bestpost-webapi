@@ -53,4 +53,7 @@ public class UserProfileController : ControllerBase
 
     public async Task<IActionResult> DeleteImageAsync() => Ok(await _userService.DeleteImageAsync());
 
+    [HttpPut("reset/password")]
+    public async Task<IActionResult> ResetPasswordAsync(ResetPasswordDto resetPassword)
+        => Ok(await _userService.ResetPassword(resetPassword));
 }

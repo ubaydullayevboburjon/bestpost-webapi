@@ -1,10 +1,12 @@
 ﻿using BestPost.DataAccsess.Interfaces.Users;
 using BestPost.DataAccsess.ViewModels;
 using BestPost.Domain.Entites.Users;
+using BestPost.Domain.Exceptions.Auth;
 using BestPost.Domain.Exceptions.Files;
 using BestPost.Domain.Exceptions.Users;
 using BestPost.Service.Common.Helpers;
 using BestPost.Service.Common.Security;
+using BestPost.Service.Dtos.Auth;
 using BestPost.Service.Dtos.Users;
 using BestPost.Service.Interfaces.Auth;
 using BestPost.Service.Interfaces.Common;
@@ -68,7 +70,7 @@ public class UserService : IUserService
         return dbResult > 0;
     }
 
-    public async Task<bool> ResetPasswordAsync(UserResetPasswordDto dto)
+    public async Task<bool> ForgotPasswordAsync(UserResetPasswordDto dto)
     {
         var user = await _repository.GetByIdAsync(_identity.UserId);
         if (user is null) throw new UserNotFoundExcaption();
@@ -111,13 +113,33 @@ public class UserService : IUserService
 
         return result > 0;
     }
-    public async Task<User> GetProfileInfoAsync() =>
-     await _repository.GetByIdAsync(_identity.UserId);
+    public async Task<User> GetProfileInfoAsync()
+    {
+        var result =  await _repository.GetByIdAsync(_identity.UserId);
+        if(result is null) throw new UserNotFoundExcaption();
+        
+        return result;
+    }
 
 
     public Task<bool> TokenCheker(string token)
     {
         throw new NotImplementedException();
     }
-}
 
+    public async Task<bool> ResetPassword(ResetPasswordDto dto)
+    {
+        var user = await _repository.GetByEmailAsync(_identity.Email);
+        if (user is null) throw new UserNotFoundExcaption();
+
+        var hasherResult = PasswordHasher.Verify(dto.OldPassword, user.PasswordHash, user.PasswordSalt);
+        if (hasherResult == false) throw new PasswordIncorrectException();
+
+        var hashResult = PasswordHasher.Hash(dto.NewPassword);
+        user.PasswordHash = hashResult.Hash;
+        user.PasswordSalt = hashResult.Salt;
+        var dbResult = await _repository.UpdateAsync(user.Id, user);
+
+        return dbResult > 0;
+    }
+}

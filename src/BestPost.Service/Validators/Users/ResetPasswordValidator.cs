@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace BestPost.Service.Validators.Users;
 
-public class ResetPasswordValidator : AbstractValidator<ResetPasswordDto>
+public class ResetPasswordValidator : AbstractValidator<ForgotPasswordDto>
 {
     public ResetPasswordValidator()
     {

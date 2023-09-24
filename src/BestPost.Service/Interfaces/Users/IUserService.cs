@@ -18,10 +18,12 @@ public interface IUserService
 
     public Task<bool> DeleteImageAsync();
 
-    public Task<bool> ResetPasswordAsync(UserResetPasswordDto dto);
+    public Task<bool> ForgotPasswordAsync(UserResetPasswordDto dto);
 
     public Task<bool> UploadImageAsync(UploadImageDto file);
 
     public Task<User> GetProfileInfoAsync();
     public Task<bool> TokenCheker(string token);
+
+    public Task<bool> ResetPassword(ResetPasswordDto dto);
 }
