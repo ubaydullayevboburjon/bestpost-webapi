@@ -124,18 +124,18 @@ public class UserRepository : BaseRepository, IUserRepository
         }
     }
 
-    public async Task<UserViewModel> GetByUsernamAsync(string username)
+    public async Task<User?> GetByUsernamAsync(string username)
     {
         try
         {
             await _connection.OpenAsync();
             string query = "SELECT *FROM users WHERE username = @Username;";
-            var data = await _connection.QuerySingleAsync<UserViewModel>(query, new { Username = username });
+            var data = await _connection.QuerySingleAsync<User>(query, new { Username = username });
             return data;
         }
         catch
         {
-            return new UserViewModel();
+            return null;
         }
         finally
         {

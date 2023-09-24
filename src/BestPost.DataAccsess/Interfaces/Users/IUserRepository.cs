@@ -5,7 +5,7 @@ namespace BestPost.DataAccsess.Interfaces.Users;
 
 public interface IUserRepository : IRepository<User, UserViewModel>
 {
-    public Task<UserViewModel> GetByUsernamAsync(string username);
+    public Task<User?> GetByUsernamAsync(string username);
 
     public Task<User?> GetByEmailAsync(string email);
 
