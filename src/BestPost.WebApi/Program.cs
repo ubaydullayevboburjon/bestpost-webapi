@@ -39,8 +39,8 @@ builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IFileService, FileService>();
-builder.Services.AddScoped<IPostService,PostService>();
-builder.Services.AddScoped<IPaginator,Paginator>();
+builder.Services.AddScoped<IPostService, PostService>();
+builder.Services.AddScoped<IPaginator, Paginator>();
 
 builder.Services.AddSingleton<IEmailSender, EmailSender>();
 

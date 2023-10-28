@@ -12,8 +12,8 @@ namespace BestPost.WebApi.Controllers.Post;
 [Authorize(Roles = "User")]
 public class PostController : ControllerBase
 {
-     private readonly int maxPageSize = 8;
-    IPostService  _postService;
+    private readonly int maxPageSize = 8;
+    IPostService _postService;
     public PostController(IPostService postService)
     {
         _postService = postService;
@@ -26,31 +26,31 @@ public class PostController : ControllerBase
         var createValidator = new PostCreateValidator();
         var result = createValidator.Validate(postCreateDto);
 
-        if (result.IsValid) return Ok(await  _postService.CreateAsync(postCreateDto));
+        if (result.IsValid) return Ok(await _postService.CreateAsync(postCreateDto));
         else return BadRequest(result.Errors);
     }
 
     [HttpGet]
     public async Task<IActionResult> GetAllAsync([FromQuery] int page = 1)
-       => Ok(await  _postService.GetAllAsync(new PaginationParams(page, maxPageSize)));
+       => Ok(await _postService.GetAllAsync(new PaginationParams(page, maxPageSize)));
 
     [HttpGet("{postId}")]
 
-    public async Task<IActionResult> GetByIdAsync(long postId) 
+    public async Task<IActionResult> GetByIdAsync(long postId)
         => Ok(await _postService.GetByIdAsync(postId));
 
     [HttpDelete("{postId}")]
 
-    public async Task<IActionResult>DeleteAsync( long postId)
-        => Ok( await _postService.DeleteAsync(postId));
+    public async Task<IActionResult> DeleteAsync(long postId)
+        => Ok(await _postService.DeleteAsync(postId));
 
     [HttpGet("search")]
 
-    public async Task<IActionResult> SearchAsync([FromQuery] string search) 
+    public async Task<IActionResult> SearchAsync([FromQuery] string search)
         => Ok(await _postService.SearchAsync(search));
 
     [HttpPut]
 
-    public async Task<IActionResult> UpdateAsync([FromForm] long id , PostUpdateDto postUpdateDto)
-        => Ok(await _postService.UpdateAsync(id,postUpdateDto));
+    public async Task<IActionResult> UpdateAsync([FromForm] PostUpdateDto postUpdateDto)
+        => Ok(await _postService.UpdateAsync( postUpdateDto));
 }

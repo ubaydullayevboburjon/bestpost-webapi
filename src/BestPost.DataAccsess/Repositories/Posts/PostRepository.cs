@@ -1,5 +1,4 @@
-﻿using BestPost.DataAccsess.Interfaces;
-using BestPost.DataAccsess.Interfaces.Posts;
+﻿using BestPost.DataAccsess.Interfaces.Posts;
 using BestPost.DataAccsess.Utils;
 using BestPost.DataAccsess.ViewModels;
 using BestPost.Domain.Entites.Posts;

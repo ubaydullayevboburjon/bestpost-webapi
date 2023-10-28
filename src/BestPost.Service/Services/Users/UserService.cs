@@ -6,7 +6,6 @@ using BestPost.Domain.Exceptions.Files;
 using BestPost.Domain.Exceptions.Users;
 using BestPost.Service.Common.Helpers;
 using BestPost.Service.Common.Security;
-using BestPost.Service.Dtos.Auth;
 using BestPost.Service.Dtos.Users;
 using BestPost.Service.Interfaces.Auth;
 using BestPost.Service.Interfaces.Common;
@@ -115,9 +114,9 @@ public class UserService : IUserService
     }
     public async Task<User> GetProfileInfoAsync()
     {
-        var result =  await _repository.GetByIdAsync(_identity.UserId);
-        if(result is null) throw new UserNotFoundExcaption();
-        
+        var result = await _repository.GetByIdAsync(_identity.UserId);
+        if (result is null) throw new UserNotFoundExcaption();
+
         return result;
     }
 

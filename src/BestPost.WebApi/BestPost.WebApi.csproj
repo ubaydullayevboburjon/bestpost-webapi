@@ -7,6 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="wwwroot\storage\images\users\IMG_4edf1f43-362e-40a3-a4ec-d1dd26a7d6d6.jpg" />
+    <Content Remove="wwwroot\storage\images\users\IMG_549343af-72af-4a8f-8e30-5bd1ab31b0ff.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.10" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.10" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />

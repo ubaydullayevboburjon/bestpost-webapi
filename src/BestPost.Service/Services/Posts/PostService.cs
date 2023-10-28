@@ -9,8 +9,6 @@ using BestPost.Service.Dtos.Posts;
 using BestPost.Service.Interfaces.Auth;
 using BestPost.Service.Interfaces.Common;
 using BestPost.Service.Interfaces.Posts;
-using BestPost.Service.Services.Auth;
-using System.Reflection.Metadata;
 
 namespace BestPost.Service.Services.Posts;
 
@@ -36,7 +34,7 @@ public class PostService : IPostService
 
     public async Task<bool> CreateAsync(PostCreateDto dto)
     {
-        string imagePath = await _fileService.UploadImageAsync(dto.Image,"posts");
+        string imagePath = await _fileService.UploadImageAsync(dto.Image, "posts");
         long userId = _identity.UserId;
         Post post = new Post()
         {
@@ -80,21 +78,20 @@ public class PostService : IPostService
 
     public async Task<List<PostViewModel>> SearchAsync(string search)
     {
-        var searche = (await  _repository.SearchAsync(search)).ToList();
+        var searche = (await _repository.SearchAsync(search)).ToList();
         return searche;
     }
 
-    public async Task<bool> UpdateAsync(long id,PostUpdateDto dto)
+    public async Task<bool> UpdateAsync(PostUpdateDto dto)
     {
-        var blog = await _repository.GetByIdAsync(id);
+        var blog = await _repository.GetByIdAsync(dto.Id);
         if (blog == null) throw new PostNotFoundException();
 
         blog.Title = dto.Title;
         blog.Description = dto.Description;
-        blog.ImagePath =  await _fileService.UploadImageAsync(dto.ImagePath, "posts");
         blog.UpdatedAt = DateTime.Now;
 
-       var result = await  _repository.UpdateAsync(id, blog);
+        var result = await _repository.UpdateAsync(dto.Id, blog);
         return result > 0;
     }
 

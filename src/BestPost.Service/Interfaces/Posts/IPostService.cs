@@ -15,7 +15,7 @@ public interface IPostService
 
     public Task<Post> GetByIdAsync(long postId);
 
-    public Task<bool> UpdateAsync(long id,PostUpdateDto dto);
+    public Task<bool> UpdateAsync(PostUpdateDto dto);
 
     public Task<List<PostViewModel>> SearchAsync(string search);
 
