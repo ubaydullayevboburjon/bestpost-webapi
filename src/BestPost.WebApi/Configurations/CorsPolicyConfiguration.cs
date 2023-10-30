@@ -13,7 +13,7 @@ public static class CorsPolicyConfiguration
 
             option.AddPolicy("OnlySite", builder =>
             {
-                builder.WithOrigins("https://bestpost.uz")
+                builder.WithOrigins("https://www.bestpost.uz")
                     .AllowAnyMethod().AllowAnyHeader();
             });
         });
