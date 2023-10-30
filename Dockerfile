@@ -11,7 +11,7 @@ FROM mcr.microsoft.com/dotnet/aspnet:7.0-alpine AS serve
 WORKDIR /app
 COPY --from=build /src/BestPost.WebApi/output .
 
-EXPOSE 80
+EXPOSE 8080
 EXPOSE 443
 
 ENTRYPOINT [ "dotnet", "BestPost.WebApi.dll" ]
