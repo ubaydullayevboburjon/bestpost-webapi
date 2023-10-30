@@ -44,17 +44,7 @@ builder.Services.AddScoped<IPaginator, Paginator>();
 
 builder.Services.AddSingleton<IEmailSender, EmailSender>();
 
-builder.Services.AddCors(options =>
-{
 
-    options.AddDefaultPolicy(
-        policy =>
-        {
-            policy.WithOrigins("https://bestpost.uz")
-                .AllowAnyHeader()
-                .AllowAnyMethod();
-        });
-});
 
 var app = builder.Build();
 
@@ -67,11 +57,9 @@ if (app.Environment.IsDevelopment() || app.Environment.IsProduction())
 
 app.UseHttpsRedirection();
 
+app.UseCors("AllowAll");
+
 app.UseStaticFiles();
-
-app.UseRouting();
-
-app.UseCors();
 
 app.UseMiddleware<ExceptionHandlerMiddleware>();
 
