@@ -59,6 +59,8 @@ app.UseHttpsRedirection();
 
 app.UseCors("AllowAll");
 
+app.UseCors("OnlySite");
+
 app.UseStaticFiles();
 
 app.UseMiddleware<ExceptionHandlerMiddleware>();
