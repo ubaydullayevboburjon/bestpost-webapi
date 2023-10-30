@@ -44,17 +44,17 @@ builder.Services.AddScoped<IPaginator, Paginator>();
 
 builder.Services.AddSingleton<IEmailSender, EmailSender>();
 
-var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy(name: MyAllowSpecificOrigins,
-                      policy =>
-                      {
-                          policy.WithOrigins("https://unitester.uz",
-                                              "https://www.bestpost.uz"); // add the allowed origins  
-                      });
-});
 
+    options.AddDefaultPolicy(
+        policy =>
+        {
+            policy.WithOrigins("https://bestpost.uz")
+                .AllowAnyHeader()
+                .AllowAnyMethod();
+        });
+});
 
 var app = builder.Build();
 
@@ -67,15 +67,11 @@ if (app.Environment.IsDevelopment() || app.Environment.IsProduction())
 
 app.UseHttpsRedirection();
 
-app.UseCors("AllowAll");
-
-app.UseCors("OnlySite");
-
 app.UseStaticFiles();
 
 app.UseRouting();
 
-app.UseCors(MyAllowSpecificOrigins);
+app.UseCors();
 
 app.UseMiddleware<ExceptionHandlerMiddleware>();
 
