@@ -29,7 +29,7 @@ builder.Services.AddMemoryCache();
 
 builder.ConfigureJwtAuth();
 builder.ConfigureSwaggerAuth();
-builder.ConfigureCORSPolicy();
+//builder.ConfigureCORSPolicy();
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IPostRepository, PostRepository>();
