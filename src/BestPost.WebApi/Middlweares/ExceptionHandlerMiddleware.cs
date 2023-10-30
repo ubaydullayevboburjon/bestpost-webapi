@@ -1,7 +1,9 @@
 ﻿using BestPost.Domain.Exceptions;
 using Newtonsoft.Json;
-
+using Serilog;
 namespace BestPost.WebApi.Middlewares;
+
+
 public class ExceptionHandlerMiddleware
 {
     private readonly RequestDelegate _next;
@@ -20,8 +22,8 @@ public class ExceptionHandlerMiddleware
         {
             var obj = new
             {
-                StatusCode = (int)exception.StatusCode,
-                ErrorMessage = exception.TitleMessage
+                statusCode = (int)exception.StatusCode,
+                errorMessage = exception.TitleMessage
             };
             httpContext.Response.StatusCode = (int)exception.StatusCode;
             httpContext.Response.Headers.ContentType = "application/json";
@@ -39,9 +41,9 @@ public class ExceptionHandlerMiddleware
             else if (env.IsProduction())
             {
                 await httpContext.Response.WriteAsync(exception.Message);
-                //  await httpContext.Response.WriteAsync("There is unknown error!");
+                await httpContext.Response.WriteAsync("There is unknown error!");
             }
-            // write to logs
+            Log.Error(exception, exception.Message);
         }
     }
 }
