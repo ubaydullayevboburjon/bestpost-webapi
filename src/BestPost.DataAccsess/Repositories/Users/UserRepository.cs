@@ -35,6 +35,7 @@ public class UserRepository : BaseRepository, IUserRepository
             var result = await _connection.ExecuteAsync(query, entity);
             return result;
         }
+        
         catch
         {
             return 0;
